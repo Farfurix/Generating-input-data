@@ -1,6 +1,6 @@
 import { Selector } from 'testcafe';
-import { generateMultiple } from 'generate-password';
 import faker from 'faker';
+import { generateMultiple } from 'generate-password';
 
 fixture `Generating input data (an email, a password)`
     .page `../page/form-validation.html`;
