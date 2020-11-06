@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<form onsubmit="event.preventDefault(); return validateForm();" anction="qwerty.html">
+    <input id="email" type="email" size="12" placeholder="Email:">
+    <input type="text" id="email-status" value="Not valid" size="6" disabled>
+    <br><br>
+    <input id="password" type="password" size="12" placeholder="Password:">
+    <input type="text" id="password-status" value="Not valid" size="6" disabled><br>
+    <small>(password must contain at least one digit/lowercase/uppercase letter and be at least eight characters long)</small>
+    <br><br>
+    <input type="submit" id="submit" value="Submit">
+</form>
+
+<script>
+    var passwordInputEl  = document.querySelector('#password');
+    var passwordStatusEl = document.querySelector('#password-status');
+    var passwordRe       = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+
+    var emailInputEl  = document.querySelector('#email');
+    var emailStatusEl = document.querySelector('#email-status');
+    var emailRe       = /^[^@\s]+@[^@\s\.]+\.[^@\.\s]+$/;
+
+
+    function validateValue(patternRe, value) {
+        return patternRe.test(value)
+    }
+
+    function validateForm () {
+        var isValidEmail    = emailRe.test(emailInputEl.value);
+        var IsValidPassword = passwordRe.test(passwordInputEl.value);
+
+        if (isValidEmail)
+            emailStatusEl.value = 'Valid';
+        else
+            emailStatusEl.value = 'Not valid';
+
+        if (IsValidPassword)
+            passwordStatusEl.value = 'Valid (' + passwordInputEl.value.length + ')';
+        else
+            passwordStatusEl.value = 'Not valid';
+
+        return isValidEmail && IsValidPassword;
+    }
+</script>
+</body>
+</html>

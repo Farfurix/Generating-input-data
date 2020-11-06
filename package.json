@@ -1,0 +1,19 @@
+{
+  "name": "generating-input-data",
+  "version": "1.0.0",
+  "description": "This repository contains sample test files used in the \"Generating input data\" post.",
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": {
+    "test": "testcafe all tests/*-test.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "faker": "^5.1.0",
+    "generate-password": "^1.5.1",
+    "nanoid": "^3.1.16",
+    "testcafe": "^1.9.4"
+  }
+}
