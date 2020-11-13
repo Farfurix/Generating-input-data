@@ -6,11 +6,11 @@
 </head>
 <body>
 <form onsubmit="event.preventDefault(); return validateForm();">
-    <input id="email" type="email" size="12" placeholder="Email:">
-    <input type="text" id="email-status" value="Not valid" size="6" disabled>
+    <input id="email" type="email" size="20" placeholder="Email:">
+    <input type="text" id="email-status" value="Not valid" size="4" disabled>
     <br><br>
-    <input id="password" type="password" size="12" placeholder="Password:">
-    <input type="text" id="password-status" value="Not valid" size="6" disabled><br>
+    <input id="password" type="password" size="20" placeholder="Password:">
+    <input type="text" id="password-status" value="Not valid" size="25" disabled><br>
     <small>(password must contain at least one digit/lowercase/uppercase letter and be at least eight characters long)</small>
     <br><br>
     <input type="submit" id="submit" value="Submit">
@@ -35,12 +35,12 @@
         var IsValidPassword = passwordRe.test(passwordInputEl.value);
 
         if (isValidEmail)
-            emailStatusEl.value = 'Valid';
+            emailStatusEl.value = 'Valid email';
         else
             emailStatusEl.value = 'Not valid';
 
         if (IsValidPassword)
-            passwordStatusEl.value = 'Valid (' + passwordInputEl.value.length + ')';
+            passwordStatusEl.value = 'Valid password with a length of ' + passwordInputEl.value.length;
         else
             passwordStatusEl.value = 'Not valid';
 

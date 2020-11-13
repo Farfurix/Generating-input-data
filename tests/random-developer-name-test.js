@@ -1,8 +1,10 @@
 import { Selector } from 'testcafe';
+
+// Import modules for IDs generating
 import { nanoid } from 'nanoid';
 
 fixture `Generating input data (a developer name)`
-    .page `https://devexpress.github.io/testcafe/example/`;
+    .page('https://devexpress.github.io/testcafe/example/');
 
 test(`Check a random developer name`, async t => {
     const nameInput    = Selector('#developer-name');

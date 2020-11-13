@@ -1,9 +1,11 @@
 import { Selector } from 'testcafe';
+
+// Import modules for emails and passwords generating
 import faker from 'faker';
 import { generateMultiple } from 'generate-password';
 
 fixture `Generating input data (an email, a password)`
-    .page `../page/form-validation.html`;
+    .page('../page/form-validation.html');
 
 const passwordInput  = Selector('#password');
 const passwordStatus = Selector('#password-status');
@@ -39,8 +41,8 @@ test('Check success validation', async t => {
             .typeText(emailInput, faker.internet.email(), { replace:true })
             .typeText(passwordInput, validPassword, { replace: true })
             .click(submit)
-            .expect(emailStatus.value).eql('Valid')
-            .expect(passwordStatus.value).eql('Valid (' + validPassword.length + ')');
+            .expect(emailStatus.value).eql('Valid email')
+            .expect(passwordStatus.value).eql('Valid password with a length of ' + validPassword.length);
     }
 });
 
