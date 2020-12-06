@@ -20,7 +20,7 @@
 
 ## Usage
 
-The included `test` script will run the tests in the repo against the browsers in your $PATH:
+The included `test` script executes the tests from the repo in the browsers on your $PATH.
 
 ```sh
 npm test
