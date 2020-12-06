@@ -20,7 +20,7 @@
 
 ## Usage
 
-Use the `npm test` script to run all tests in all locally installed browsers.
+The included `test` script will launch all the tests in the repo against all the browsers in your $PATH:
 
 ```sh
 npm test
