@@ -6,7 +6,7 @@ import { nanoid } from 'nanoid';
 fixture `Random Input Data: example 1`
     .page('https://devexpress.github.io/testcafe/example/');
 
-test('Generate a radom name', async t => {
+test('Generate a random name', async t => {
 
     // Generate a random string with nanoid
     const randomDeveloperName = 'testuser_' + nanoid();

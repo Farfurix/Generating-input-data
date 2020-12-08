@@ -19,9 +19,9 @@ test('Successful validation', async t => {
             uppercase: true,
             lowercase: true,
             strict: true });
-        
+
         validPasswords.push(newRandomPassword);
-    };
+    }
 
     // Try all the passwords and see if they are found valid
     for (const validPassword of validPasswords) {
@@ -32,6 +32,7 @@ test('Successful validation', async t => {
             // check that there's no warning
             .expect(Selector('#password-status').value).eql('Valid password with a length of ' + validPassword.length);
     }
+
 });
 
 test('Invalid password warning', async t => {
@@ -67,7 +68,6 @@ test('Invalid password warning', async t => {
 
     const invalidPasswords = shortPasswords.concat(passwordsWithoutUppercase, passwordsWithoutLowercase, passwordsWithoutDigits);
 
-    
     // Try all the passwords and see if they are found valid
     for (const invalidPassword of invalidPasswords) {
         await t
@@ -76,4 +76,5 @@ test('Invalid password warning', async t => {
             .click('#submit')
             .expect(Selector('#password-status').value).eql('Not valid');
     }
+
 });
