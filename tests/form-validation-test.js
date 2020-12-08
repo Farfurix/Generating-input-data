@@ -1,89 +1,79 @@
 import { Selector } from 'testcafe';
 
-// Import modules for emails and passwords generating
+// Import the required libraries
 import faker from 'faker';
-import { generateMultiple } from 'generate-password';
+import generator from 'generate-password';
 
-fixture `Generating input data (an email, a password)`
+fixture `Form validation test`
     .page('../page/form-validation.html');
 
-const passwordInput  = Selector('#password');
-const passwordStatus = Selector('#password-status');
-const emailInput     = Selector('#email');
-const emailStatus    = Selector('#email-status');
-const submit         = Selector('#submit');
+test('Successful validation', async t => {
 
-test('Check success validation', async t => {
-    // Generate valid passwords arrays for [8,9,10] characters long
-    const validPasswordsWithLength8  = generateMultiple(5, {
-        length: 8,
-        numbers: true,
-        strict: true
-    });
-    const validPasswordsWithLength9  = generateMultiple(5, {
-        length: 9,
-        numbers: true,
-        strict: true
-    });
-    const validPasswordsWithLength10 = generateMultiple(5, {
-        length: 10,
-        numbers: true,
-        strict: true
-    });
+    let validPasswords = [];
 
-    // Concatenate all the valid passwords arrays into single array
-    const validPasswords = validPasswordsWithLength8
-        .concat(validPasswordsWithLength9, validPasswordsWithLength10);
+    for (let i = 0; i < 5; i++){
+        let newRandomPassword = generator.generate({
+            // let Faker.js determine the length of the password
+            length: faker.random.number({ 'min': 10, 'max': 20 }),
+            numbers: true,
+            uppercase: true,
+            lowercase: true,
+            strict: true });
+        
+        validPasswords.push(newRandomPassword);
+    };
 
-    // Type each password and assert the result password state
+    // Try all the passwords and see if they are found valid
     for (const validPassword of validPasswords) {
         await t
-            .typeText(emailInput, faker.internet.email(), { replace:true })
-            .typeText(passwordInput, validPassword, { replace: true })
-            .click(submit)
-            .expect(emailStatus.value).eql('Valid email')
-            .expect(passwordStatus.value).eql('Valid password with a length of ' + validPassword.length);
+            .typeText('#email', faker.internet.email(), { replace:true })
+            .typeText('#password', validPassword, { replace: true })
+            .click('#submit')
+            // check that there's no warning
+            .expect(Selector('#password-status').value).eql('Valid password with a length of ' + validPassword.length);
     }
 });
 
-test('Check validation failure', async t => {
-    // We use one case of an invalid email
-    const invalidEmail = 'invalid@email';
+test('Invalid password warning', async t => {
 
-    // Generate invalid passwords arrays
-    const shortPasswords = generateMultiple(5, {
+    // These passwords are too short
+    const shortPasswords = generator.generateMultiple(5, {
         length: 7,
         numbers: true,
         strict: true
     });
-    const passwordsWithoutUppercase = generateMultiple(5, {
+
+    // These passwords lack uppercase characters
+    const passwordsWithoutUppercase = generator.generateMultiple(5, {
         length: 8,
         numbers: true,
         uppercase: false,
         strict: true
     });
-    const passwordsWithoutLowercase = generateMultiple(5, {
+
+    // These passwords lack lowercase characters
+    const passwordsWithoutLowercase = generator.generateMultiple(5, {
         length: 8,
         numbers: true,
         lowercase: false,
         strict: true
     });
-    const passwordsWithoutDigits = generateMultiple(5, {
+
+    // These passwords lack digits
+    const passwordsWithoutDigits = generator.generateMultiple(5, {
         length: 8,
         strict: true
     });
 
-    // Concatenate all the invalid passwords arrays into single array
-    const invalidPasswords = shortPasswords
-        .concat(passwordsWithoutUppercase, passwordsWithoutLowercase, passwordsWithoutDigits);
+    const invalidPasswords = shortPasswords.concat(passwordsWithoutUppercase, passwordsWithoutLowercase, passwordsWithoutDigits);
 
-    // Type each password and assert the result password state
+    
+    // Try all the passwords and see if they are found valid
     for (const invalidPassword of invalidPasswords) {
         await t
-            .typeText(emailInput, invalidEmail, { replace: true })
-            .typeText(passwordInput, invalidPassword, { replace: true })
-            .click(submit)
-            .expect(emailStatus.value).eql('Not valid')
-            .expect(passwordStatus.value).eql('Not valid');
+            .typeText('#email', faker.internet.email(), { replace: true })
+            .typeText('#password', invalidPassword, { replace: true })
+            .click('#submit')
+            .expect(Selector('#password-status').value).eql('Not valid');
     }
 });

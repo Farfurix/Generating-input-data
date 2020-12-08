@@ -8,7 +8,7 @@ fixture `Random Input Data: example 1`
 
 test('Generate a radom name', async t => {
 
-    // Generate a random string with nanoid and save it
+    // Generate a random string with nanoid
     const randomDeveloperName = 'testuser_' + nanoid();
 
     await t
@@ -17,5 +17,6 @@ test('Generate a radom name', async t => {
         // Click 'Submit'
         .click('#submit-button')
         // Verify that the page displays the name we just entered
-        .expect('#article-header'.innerText).contains(randomDeveloperName);
+        .expect(Selector('#article-header').innerText).contains('Thank you, ' + randomDeveloperName + '!');
+
 });
