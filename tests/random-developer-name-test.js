@@ -1,22 +1,22 @@
 import { Selector } from 'testcafe';
 
-// Import modules for IDs generating
+// Import the nanoid module
 import { nanoid } from 'nanoid';
 
-fixture `Generating input data (a developer name)`
+fixture `Random Input Data: example 1`
     .page('https://devexpress.github.io/testcafe/example/');
 
-test('Check a random developer name', async t => {
-    const nameInput    = Selector('#developer-name');
-    const submitButton = Selector('#submit-button');
-    const result       = Selector('#article-header');
+test('Generate a random name', async t => {
 
-    // Generate a developer name using nanoid and save it to a variable
+    // Generate a random string with nanoid
     const randomDeveloperName = 'testuser_' + nanoid();
 
     await t
-        // Type the developer name in input
-        .typeText(nameInput, randomDeveloperName)
-        .click(submitButton)
-        .expect(result.innerText).contains(randomDeveloperName);
+        // Populate the input field with the random name
+        .typeText('#developer-name', randomDeveloperName)
+        // Click 'Submit'
+        .click('#submit-button')
+        // Verify that the page displays the name we just entered
+        .expect(Selector('#article-header').innerText).contains('Thank you, ' + randomDeveloperName + '!');
+
 });

@@ -7,7 +7,6 @@
 <body>
 <form onsubmit="event.preventDefault(); return validateForm();">
     <input id="email" type="email" size="20" placeholder="Email:">
-    <input type="text" id="email-status" value="Not valid" size="4" disabled>
     <br><br>
     <input id="password" type="password" size="20" placeholder="Password:">
     <input type="text" id="password-status" value="Not valid" size="25" disabled><br>
@@ -21,30 +20,15 @@
     var passwordStatusEl = document.querySelector('#password-status');
     var passwordRe       = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
 
-    var emailInputEl  = document.querySelector('#email');
-    var emailStatusEl = document.querySelector('#email-status');
-    var emailRe       = /^[^@\s]+@[^@\s\.]+\.[^@\.\s]+$/;
-
-
-    function validateValue(patternRe, value) {
-        return patternRe.test(value)
-    }
-
     function validateForm () {
-        var isValidEmail    = emailRe.test(emailInputEl.value);
         var IsValidPassword = passwordRe.test(passwordInputEl.value);
-
-        if (isValidEmail)
-            emailStatusEl.value = 'Valid email';
-        else
-            emailStatusEl.value = 'Not valid';
 
         if (IsValidPassword)
             passwordStatusEl.value = 'Valid password with a length of ' + passwordInputEl.value.length;
         else
             passwordStatusEl.value = 'Not valid';
 
-        return isValidEmail && IsValidPassword;
+        return IsValidPassword;
     }
 </script>
 </body>
