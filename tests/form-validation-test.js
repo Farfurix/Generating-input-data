@@ -7,14 +7,13 @@ import generator from 'generate-password';
 fixture `Form validation test`
     .page('../page/form-validation.html');
 
-test('Successful validation', async t => {
+test('Successful password validation', async t => {
 
     let validPasswords = [];
 
-    for (let i = 0; i < 5; i++){
+    for (let i = 0; i < 5; i++) {
         let newRandomPassword = generator.generate({
-            // let Faker.js determine the length of the password
-            length: faker.random.number({ 'min': 10, 'max': 20 }),
+            length: faker.random.number({ 'min': 10, 'max': 20 }), // 10-20 characters long
             numbers: true,
             uppercase: true,
             lowercase: true,
