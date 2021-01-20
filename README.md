@@ -1,3 +1,7 @@
+## Article
+
+[Randomize Your End-to-End Tests: How to Generate Input Data for TestCafe](https://devexpress.github.io/testcafe/media/team-blog/randomize-your-end-to-end-tests-how-to-generate-input-data-for-testcafe.html)
+
 ## Installation
 
 1. Clone this repository:
